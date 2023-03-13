@@ -35,6 +35,8 @@ export async function run() {
     username: { type: DataTypes.STRING, allowNull: false },
   }, {
     sequelize,
+    tableName: 'users',
+    schema: 'tests',
     modelName: 'User',
     timestamps: true,
     createdAt: 'created_at',
@@ -75,6 +77,7 @@ export async function run() {
 
   expect(await User.count()).to.equal(3);
 
+  console.log(`Attempting to delete all users with username 'some_other_username'`)
   let res_delete
   try {
     res_delete = await User.destroy({where: { username: 'some_other_username' }})
